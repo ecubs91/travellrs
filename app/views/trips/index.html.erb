@@ -1,0 +1,56 @@
+<h1>Listing trips</h1>
+
+<%= link_to 'New Trip', new_trip_path %>
+<div class="container">
+   <div class="row">
+     <div class="col-md-6 col-md-offset-2">
+        <%= form_tag search_trips_path, method: :get, class: "center" do %>
+        <p>
+          <%= text_field_tag :search, params[:search], class: "form-control" %>
+          <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
+        </p>
+        <% end %>  
+     </div> 
+   </div>
+  <br>
+  <br>
+
+<div class="row">
+  <div class="col-md-2">
+     <p>Sort by</p>
+       <p>Language Spoken
+         <ul>
+           <li><%= link_to "English", search_trips_path({:language => 'English'}.merge(params)) %></li>
+           <li><%= link_to "Chinese", search_trips_path({:language => 'Chinese'}.merge(params)) %></li>
+         s</ul>
+    
+      </p>
+      <p>Interests
+    
+      </p>   
+    
+  </div>
+  <div class="col-md-10">
+    <% @trips.each do |trip| %>
+      <div class="row">
+            <div class="col-md-3">
+                
+                    </div>
+                </a>
+            </div>
+            <div class="col-md-5">
+              <h3><%= "#{trip.user.first_name.capitalize} #{trip.user.last_name.capitalize}." %></h3>
+              <p><%= trip.destination %> 
+              <p><%= truncate(trip.about_myself, :length => 275) %></p> 
+            </div>
+            <div class="col-md-2">
+              <%= link_to "Message", class: "btn btn-link" %> 
+            </div>  
+      </div>
+    <% end %>
+  </div>
+</div>   
+<br>
+<%= #will_paginate @tutors, renderer: BootstrapPagination::Rails 
+%>
+<br>

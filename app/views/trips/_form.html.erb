@@ -1,0 +1,58 @@
+<%= form_for(@trip) do |f| %>
+  <% if @trip.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@trip.errors.count, "error") %> prohibited this trip from being saved:</h2>
+
+      <ul>
+      <% @trip.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+
+
+<div class="row">
+  <div class="col-md-6 col-md-offset-2">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :destination %><br>
+          <%= f.text_field :destination, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :interests %><br>
+          <%= f.text_field :interests, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :starting_date %><br>
+          <%= f.date_select :starting_date, class: "form-control" %>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="form-group">
+          <%= f.label :end_date %><br>
+          <%= f.date_select :end_date, class: "form-control" %>
+        </div>
+      </div>
+    </div>
+  <div class="form-group">
+    <%= f.label :language %><br>
+    <%= f.text_field :language, class: "form-control" %>
+  </div>  
+  <div class="form-group">
+    <%= f.label :about_myself %><br>
+    <%= f.text_area :about_myself, class: "form-control" %>
+  </div>
+   
+  <div class="actions">
+    <%= f.submit "Post My Trip", class: "btn btn-success" %>
+  </div>
+</div>
+</div>
+<% end %>

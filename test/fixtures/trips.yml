@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  destination: MyString
+  starting_date: 2014-09-16
+  end_date: 2014-09-16
+  interests: MyString
+  user_id: 1
+
+two:
+  destination: MyString
+  starting_date: 2014-09-16
+  end_date: 2014-09-16
+  interests: MyString
+  user_id: 1

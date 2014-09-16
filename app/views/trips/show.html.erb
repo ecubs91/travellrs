@@ -1,0 +1,56 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Destination:</strong>
+  <%= @trip.destination %>
+</p>
+
+<p>
+  <strong>Starting date:</strong>
+  <%= @trip.starting_date %>
+</p>
+
+<p>
+  <strong>End date:</strong>
+  <%= @trip.end_date %>
+</p>
+
+<p>
+  <strong>Interests:</strong>
+  <%= @trip.interests %>
+</p>
+
+
+<div class="col-md-8 col-md-offset-1">
+  <%= link_to 'Comment', new_trip_comment_path(@trip), class: "btn btn-primary" %>
+
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th class="col-md-3"></th>
+            <th class="col-md-9"></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @comments.each do |comment| %>
+            <tr>
+              <td>
+                <h4>
+                  <%= "#{comment.user.first_name.capitalize} #{comment.user.last_name.capitalize[0]}." %>
+                </h4>     
+                <p><%= comment.created_at.strftime("%-m/%-d/%y") %></p>      
+              </td>
+              <td>
+                <p><%= comment.comment %></p>
+                <p><%= h(comment.comment).gsub(/\n/, '<br/>').html_safe %></p>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>  
+
+
+<%= link_to 'Edit', edit_trip_path(@trip) %> |
+<%= link_to 'Back', trips_path %>
