@@ -2,9 +2,8 @@ Rails.application.routes.draw do
   
 
   get 'pages/about'
-
   get 'pages/contact'
-  
+  get 'pages/how_it_works'
   get 'pages/team'
   
   root 'pages#index'

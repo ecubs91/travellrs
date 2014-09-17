@@ -1,20 +1,20 @@
-<h1>Listing trips</h1>
 
-<%= link_to 'New Trip', new_trip_path %>
 <div class="container">
+  <h1>Trips</h1>
+  <%= link_to 'New Trip', new_trip_path, class: "btn btn-primary" %>
    <div class="row">
      <div class="col-md-6 col-md-offset-2">
-        <%= form_tag search_trips_path, method: :get, class: "center" do %>
-        <p>
-          <%= text_field_tag :search, params[:search], class: "form-control" %>
-          <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
-        </p>
-        <% end %>  
-     </div> 
-   </div>
-  <br>
-  <br>
+         
 
+        <%= form_tag search_trips_path, method: :get, class: "center" do %>
+       <%= text_field_tag :search, params[:search], class: "form-control" %>
+     </div>  
+     <div class="col-md-2">
+      <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
+      <% end %> 
+     </div> 
+   </div>        
+      
 <div class="row">
   <div class="col-md-2">
      <p>Sort by</p>
@@ -22,21 +22,24 @@
          <ul>
            <li><%= link_to "English", search_trips_path({:language => 'English'}.merge(params)) %></li>
            <li><%= link_to "Chinese", search_trips_path({:language => 'Chinese'}.merge(params)) %></li>
-         s</ul>
-    
+           <li><%= link_to "Chinese", search_trips_path({:language => 'Korean'}.merge(params)) %></li>
+           <li><%= link_to "Chinese", search_trips_path({:language => 'French'}.merge(params)) %></li>
+        </ul>    
       </p>
       <p>Interests
-    
+        <ul>
+           <li><%= link_to "Football", search_trips_path({:interests => 'football'}.merge(params)) %></li>
+           <li><%= link_to "Musical", search_trips_path({:interests => 'musical'}.merge(params)) %></li>
+          <li><%= link_to "Food", search_trips_path({:interests => 'food'}.merge(params)) %></li>
+          <li><%= link_to "Nightlife", search_trips_path({:interests => 'nightlife'}.merge(params)) %></li>
+        </ul>       
       </p>   
-    
-  </div>
+  </div><!-- end of col-md-2 -->
+  <% @trips.each do |trip| %>
   <div class="col-md-10">
-    <% @trips.each do |trip| %>
       <div class="row">
-            <div class="col-md-3">
-                
-                    </div>
-                </a>
+            <div class="col-md-3">       
+              
             </div>
             <div class="col-md-5">
               <h3><%= "#{trip.user.first_name.capitalize} #{trip.user.last_name.capitalize}." %></h3>
@@ -46,9 +49,9 @@
             <div class="col-md-2">
               <%= link_to "Message", class: "btn btn-link" %> 
             </div>  
-      </div>
-    <% end %>
-  </div>
+      </div><!-- end of row -->
+  </div><!-- end of col-md-10 -->
+<% end %>
 </div>   
 <br>
 <%= #will_paginate @tutors, renderer: BootstrapPagination::Rails 
