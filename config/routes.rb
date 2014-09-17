@@ -8,7 +8,18 @@ Rails.application.routes.draw do
   
   root 'pages#index'
 
+
+  resources :users
   devise_for :users
+  resources :messages 
+
+  resources :conversations do
+      member do
+        post :reply
+        post 'trash'
+      end
+    end
+  
   resources :trips do
     collection do 
         get 'search'

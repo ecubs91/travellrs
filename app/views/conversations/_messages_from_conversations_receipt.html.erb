@@ -1,0 +1,25 @@
+<table class="table">
+   <thead>
+  </thead>
+  <%= content_tag_for(:li, conversation.receipts_for(current_user).order(:created_at => :desc) ) do |receipt| %>
+ 
+  <tbody>
+    <tr>
+      <td>
+        <p><% message = receipt.message %>
+         <% if message.sender == current_user %>
+          <%= link_to 'You', message.sender %>,  received <%= conversation.updated_at.strftime("%m/%e/%Y %I:%M %p") %>
+            <%= simple_format h message.body %>
+        
+          <% else %>
+           <%= link_to message.sender.first_name, message.sender %>, 
+          received, <%= conversation.updated_at.strftime("%m/%e/%Y %I:%M %p") %>
+           <%= simple_format h message.body %>
+          <% end %></p>
+      </td>
+    </tr>
+  </tbody>
+  <% end %>
+</table>
+          
+  
