@@ -9,7 +9,7 @@ Rails.application.routes.draw do
   root 'pages#index'
 
 
-  resources :users
+  #resources :users
   devise_for :users
   resources :messages 
 

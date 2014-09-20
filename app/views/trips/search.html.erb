@@ -6,7 +6,9 @@
      <div class="col-md-6 col-md-offset-2">
         <%= form_tag search_trips_path, method: :get, class: "center" do %>
         <p>
-          <%= text_field_tag :search, params[:search], class: "form-control" %>
+          <%#= text_field_tag :search, params[:search], class: "form-control" %>
+          <%= select_tag :search, options_for_select(@destinations.uniq.sort.map {|destination| [destination.capitalize,destination]}.insert(0, "Where are you travelling to?")), :id => "e1", :style=>"width:100%;"%><br>
+          <br>
           <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
         </p>
         <% end %>  
@@ -22,21 +24,15 @@
          <ul>
            <li><%= link_to "English", search_trips_path({:language => 'English'}.merge(params)) %></li>
            <li><%= link_to "Chinese", search_trips_path({:language => 'Chinese'}.merge(params)) %></li>
-         s</ul>
-    
-      </p>
-      <p>Interests
-    
-      </p>   
-    
-  </div>
-  <div class="col-md-10">
-    <% @trips.each do |trip| %>
-      <div class="row">
-            <div class="col-md-3">
-                
-                    </div>
-                </a>
+         </ul>
+       </p>
+       <p>Interests</p>
+     </div>
+     <div class="col-md-10">
+         <% @trips.each do |trip| %>
+             <div class="row">
+                 <div class="col-md-3">
+                 </div>
             </div>
             <div class="col-md-5">
               <h3><%= "#{trip.user.first_name.capitalize} #{trip.user.last_name.capitalize}." %></h3>
@@ -45,12 +41,17 @@
             </div>
             <div class="col-md-2">
               <%= link_to "Message", class: "btn btn-link" %> 
-            </div>  
-      </div>
-    <% end %>
+            </div>
+         <% end %>
+     </div>
+
   </div>
 </div>   
 <br>
 <%= #will_paginate @tutors, renderer: BootstrapPagination::Rails 
 %>
 <br>
+
+<script>
+    $(document).ready(function() { $("#e1").select2({placeholder: "What subject are you interested in?", allowClear: true}); });
+</script>
