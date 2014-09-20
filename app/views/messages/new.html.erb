@@ -1,6 +1,19 @@
-<%= form_tag({controller: "messages", action: "create"}, method: :post) do %>
-  <%= text_field_tag :subject %>
-  <%= text_area_tag :body %>
-<%= hidden_field_tag :user,  params[:user] %>
-  <%= submit_tag 'Send email' %>
-<% end %>
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 col-md-offset-1">
+
+      <h3>Message <%= @user.first_name %> <%= @user.last_name %></h3>
+      <br>
+      <%= form_tag({controller: "messages", action: "create"}, method: :post) do %>
+        
+      <div class="form-group">
+      <%= text_field_tag :subject, nil, class: "form-control", placeholder: "Subject of the message" %>
+      </div>
+      <div class="form-group">
+        <%= text_area_tag :body, nil, class: "form-control", placeholder: "Subject of the message" %>
+        </div>
+      <%= hidden_field_tag :user,  params[:user] %>
+      <%= submit_tag 'Send Message', class: "btn btn-primary" %>
+      <% end %>
+       </div>
+  </div>

@@ -6,8 +6,9 @@
      <div class="col-md-6 col-md-offset-3">
         <%= form_tag search_trips_path, method: :get, class: "center" do %>
           <%= select_tag :search, options_for_select(@destinations.uniq.sort.map {|destination| [destination.capitalize,destination]}.insert(0, "Where are you travelling to?")), :id => "e1", :style=>"width:100%;"%><br>
-          <%#= text_field_tag :search, params[:search], class: "form-control", placeholder: "Where are you travelling to?" %>
-           <br><%= submit_tag "Search", name: nil, class: "btn btn-default" %>
+          <div style="margin-top:15px">
+            <%= submit_tag "Search", name: nil, class: "btn btn-primary" %>
+       </div>
         <% end %>
        </div> 
     </div>  
@@ -17,11 +18,11 @@
 <div class="index">  
 <div class="row">	
 	<div class="col-md-6 col-md-offset-3">
-		<h2>Making travel sociable</h2>
-		<p>Travellrs is a platform for travellers who would like to meet new friends to travel with and locals that seek international friends.</p>
+		<h2 style="text-align:center">Making travel sociable</h2>
+		<p  style="text-align:center">Travellrs is a platform for travellers who would like to meet new friends to travel with and locals that seek international friends.</p>
     <div class="center"><img src="https://dl.dropboxusercontent.com/s/s0xx865awn7o806/1620961_291006137690740_1379087059_n.jpg" class="img-circle" height="250" width="250"></div>
     <br>
-		<p>Our aim is to support the cross-border friendship culture and add local social life to travel experience.</p>
+		<p  style="text-align:center">Our aim is to support the cross-border friendship culture and add local social life to travel experience.</p>
 	</div>
 </div>
 
@@ -29,11 +30,11 @@
 
 <div class="row">
 	<div class="col-md-5 col-md-offset-1">
-		<h2 class="alignright">Connect with new people</h2>
-		<p class="alignright">This is a great chance to meet new people. The ultimate way of networking while traveling.</p>
+		<h2 class="text-align:right">Connect with new people</h2>
+		<p class="text-align:right">This is a great chance to meet new people. The ultimate way of networking while traveling.</p>
 	</div>
 	<div class="col-md-6">
-      <img src="https://dl.dropboxusercontent.com/s/hjbz89yxi8nemxn/IMG_7816.JPG" class="img-circle" height="250" width="250">
+      <div class="center"><img src="https://dl.dropboxusercontent.com/s/hjbz89yxi8nemxn/IMG_7816.JPG" class="img-circle" height="250" width="250"></div>
 	</div>
 </div>
 
@@ -55,8 +56,8 @@
 <br><br>
 <div class="row">
 	<div class="col-md-5 col-md-offset-1">
-		<h2 style="align: right">Call your new travel buddy <br>when you vist his town</h2>
-    <p>Travelling to China? Oh wait, you've met a fellow travel buddy from China during last year's trip to the UK. Hang out with friends you meet from travelling in their local towns. Likewise, show your travel buddies around when they visit your town.</p>
+		<h2 style="text-align: right">Call your new travel buddy <br>when you vist his town</h2>
+    <p style="text-align: right">Travelling to China? Oh wait, you've met a fellow travel buddy from China during last year's trip to the UK. Hang out with friends you meet from travelling in their local towns. Likewise, show your travel buddies around when they visit your town.</p>
 	</div>
 	<div class="col-md-6">
 		<img src="https://dl.dropboxusercontent.com/s/otpwr8cw4qq94tj/christchurch.JPG" class="img-circle" height="250" width="250">				 

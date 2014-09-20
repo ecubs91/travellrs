@@ -35,12 +35,14 @@
             </div>
             <div class="col-md-5">
               <h3><%= "#{trip.user.first_name.capitalize} #{trip.user.last_name.capitalize}" %></h3>
-              <p><%= trip.destination %> 
-              <p><%= truncate(trip.about_myself, :length => 250) %></p> 
+              <p>Destination: <%= trip.destination %><br> 
+                Interests: <%= trip.interests %><br>
+                Language spoken: <%= trip.language %><br>
+              About Myself: <%= truncate(trip.about_myself, :length => 200) %></p> 
             </div>
             <div class="col-md-2">
               
-              <%= link_to "Message", new_message_path(user: trip.user), class: "btn btn-link" %> 
+              <%= link_to "Message", new_message_path(user: trip.user), class: "btn btn-primary" %> 
             </div>          
       </div><!-- end of row -->
     <% end %>
