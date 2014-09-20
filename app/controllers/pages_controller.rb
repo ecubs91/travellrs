@@ -1,4 +1,9 @@
 class PagesController < ApplicationController
+
+  def index
+    @destinations = Trip.pluck("destination")
+  end
+
   def about
   end
 

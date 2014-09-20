@@ -7,6 +7,7 @@ class TripsController < ApplicationController
   
   def search
     @filters = params.slice(:language)
+    @destinations = Trip.pluck("destination")
 
     if params[:search].present?
       @trips = Trip.where("destination LIKE :destination",  {destination: "%#{params[:search]}%"}).where(@filters)
@@ -37,6 +38,7 @@ class TripsController < ApplicationController
   # POST /trips
   # POST /trips.json
   def create
+    trip_params["destination"].downcase!
     @trip = Trip.new(trip_params)
     @trip.user_id = current_user.id
 
