@@ -7,10 +7,10 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-md-6 col-md-offset-2">
+    <div class="col-md-8 col-md-offset-2">
       <%= form_tag search_trips_path, :method=> :get, :class=> "center" do %>
-          <%= select_tag :search, options_for_select(@destinations.uniq.sort.map {|destination| [destination.capitalize,destination]}.insert(0, "Where are you travelling to?")), :id => "e1", :style=>"width:100%;" %><br><br>
-          <%= submit_tag "Search", :name=> nil, :class=> "btn btn-default" %>
+          <%= select_tag :search, options_for_select(@destinations.uniq.sort.map {|destination| [destination.capitalize,destination]}), :id => "e1", :style=>"width:100%;", :multiple => true %><br><br>
+          <%= submit_tag "Search", :name=> nil, class: "btn btn-primary" %>
       <% end %>
     </div>
   </div>
@@ -91,5 +91,5 @@
   <br>
 
   <script>
-      $(document).ready(function() { $("#e1").select2({placeholder: "What subject are you interested in?", allowClear: true}); });
+      $(document).ready(function() { $("#e1").select2({placeholder: "Where are you travelling to?", allowClear: true, maximumSelectionSize:1}); });
   </script>

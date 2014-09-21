@@ -11,12 +11,12 @@ class TripsController < ApplicationController
     @interests = Trip.pluck(:interests).uniq
     @destinations = Trip.pluck(:destination).uniq
     @filters = params.slice(:language,:interests)
-    @search_param = params[:search]
+    @search_param = params[:search].first
     @language_param = params[:language]
     @intersts_param = params[:interests]
 
     if params[:search].present?
-      @trips = Trip.where("destination LIKE :destination",  {:destination=> "%#{params[:search]}%"}).where(@filters)
+      @trips = Trip.where("destination LIKE :destination",  {:destination=> "%#{params[:search].first}%"}).where(@filters)
     else
       @trips = Trip.where(@filters).paginate(:page => params[:page], :per_page => 10)
     end
