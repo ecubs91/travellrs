@@ -2,9 +2,13 @@ class MessagesController < ApplicationController
   before_filter :authenticate_user!, except: [:new, :create]
 
   def new
-    @user = User.find(params[:user])
-    @message = current_user.messages.new
-    
+    if current_user
+      @user = User.find(params[:user])
+      @message = current_user.messages.new
+    else
+      flash[:error] = "Please Login or Signup bto send message to the registered Traveller"
+      redirect_to root_path
+    end
   end
  
   def create
