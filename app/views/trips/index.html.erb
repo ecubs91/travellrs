@@ -1,56 +1,64 @@
+<h1>Listing trips</h1>
+
+<%= link_to 'New Trip', new_trip_path %>
 <div class="container">
-   <div class="row">
-     <div class="col-md-6 col-md-offset-2">
-        <%= form_tag search_trips_path, method: :get, class: "center" do %>
-       <%= text_field_tag :search, params[:search], class: "form-control" %>
-     </div>  
-     <div class="col-md-2">
-      <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
-      <% end %> 
-     </div> 
-  <%= link_to 'New Trip', new_trip_path, class: "btn btn-primary" %>
-   </div>   
-  <hr>
-<div class="row">
-  <div class="col-md-2" style='border-right: 1px solid #eeeeee;'>    
-       <p style="line-height:28px">Language Spoken        
-         <br><%= link_to "English", search_trips_path({:language => 'English'}.merge(params)) %>
-         <br><%= link_to "Chinese", search_trips_path({:language => 'Chinese'}.merge(params)) %>
-         <br><%= link_to "Korean", search_trips_path({:language => 'Korean'}.merge(params)) %>
-         <br><%= link_to "French", search_trips_path({:language => 'French'}.merge(params)) %>
-            
-      </p>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-2">
+      <%= form_tag search_trips_path, :method=> :get, :class=> "center" do %>
+        <p>
+          <%#= text_field_tag :search, params[:search], class: "form-control" %>
+          <%= select_tag :search, options_for_select(@destinations.uniq.sort.map {|destination| [destination.capitalize,destination]}.insert(0, "Where are you travelling to?")), :id => "e1", :style=>"width:100%;" %><br><br>
+          <%= submit_tag "Search", :name=> nil, :class=> "btn btn-default" %>
+        </p>
+      <% end %>
+    </div>
+  </div>
+
+  <br><br>
+
+  <div class="row">
+    <div class="col-md-2">
+       <p style="line-height:28px">Language Spoken 
+           <% @languages.each do |language| %>
+              <% if language.present? %>
+                <%= link_to language.capitalize, search_trips_path(:language => language, :search => @search_param) %>
+              <% end %>
+            <% end %>
+         </p>
       <p style="line-height:28px">Interests
-        <br><%= link_to "Football", search_trips_path({:interests => 'football'}.merge(params)) %>
-        <br><%= link_to "Musical", search_trips_path({:interests => 'musical'}.merge(params)) %>
-        <br><%= link_to "Food", search_trips_path({:interests => 'food'}.merge(params)) %>
-        <br><%= link_to "Nightlife", search_trips_path({:interests => 'nightlife'}.merge(params)) %>     
-      </p>   
-  </div><!-- end of col-md-2 -->
-  <div class="col-md-10">
+         <% @interests.each do |interest| %>
+            <% if interest.present? %>
+              <%= link_to interest.capitalize, search_trips_path(:search => @search_param, :interests => interest) %>
+            <% end %>
+          <% end %>          
+      </p>
+    </div>
+    <div class="col-md-10">
       <% @trips.each do |trip| %>
-      <div class="row">       
-            <div class="col-md-1">
+        <div class="row">
+         <div class="col-md-1">
             </div>
-            <div class="col-md-5">
-              <a href="/trips/<%= trip.id %>">
-              <h3><%= "#{trip.user.first_name.capitalize} #{trip.user.last_name.capitalize}" %></h3>
-              <p>Destination: <%= trip.destination %><br> 
+           
+        <div class="col-md-5">
+          <h3><%= "#{trip.user.first_name.capitalize} #{trip.user.last_name.capitalize}." %></h3>
+          <p>Destination: <%= trip.destination %><br> 
                 Interests: <%= trip.interests %><br>
                 Language spoken: <%= trip.language %><br>
               About Myself: <%= truncate(trip.about_myself, :length => 200) %></p> 
-            </div>
-            <div class="col-md-1">
-            </div>
-            <div class="col-md-2">
-              
-              <%= link_to "Message", new_message_path(user: trip.user), class: "btn btn-primary" %> 
-            </div>          
-      </div><!-- end of row -->
+        </div>
+        <div class="col-md-1">
+        </div>
+        <div class="col-md-2">              
+           <%= link_to "Message", new_message_path(user: trip.user), class: "btn btn-primary" %> 
+        </div>          
+     </div><!-- end of row -->
     <% end %>
   </div><!-- end of col-md-10 -->
 </div>   
+<%#= will_paginate @tutors, renderer: BootstrapPagination::Rails %>
 <br>
-<%= #will_paginate @tutors, renderer: BootstrapPagination::Rails 
-%>
-<br>
+
+<script>
+    $(document).ready(function() { $("#e1").select2({placeholder: "What subject are you interested in?", allowClear: true}); });
+</script>
