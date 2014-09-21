@@ -6,7 +6,7 @@ class MessagesController < ApplicationController
       @user = User.find(params[:user])
       @message = current_user.messages.new
     else
-      flash[:error] = "Please Login or Signup bto send message to the registered Traveller"
+      flash[:error] = "Please Login or Signup to send message to the registered Traveller"
       redirect_to root_path
     end
   end
