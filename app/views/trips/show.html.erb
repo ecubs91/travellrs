@@ -17,17 +17,27 @@
           <strong>End date:</strong>
           <%= @trip.end_date %>
         </p>
-
         <p>
           <strong>Interests:</strong>
           <%= @trip.interests %>
         </p>
-
-
+        <p>
+          <strong>About Myself:</strong>
+          <%= @trip.about_myself %>
+        </p>
+      
+    </div>
+    <div class="col-md-2">
+      <%= link_to "Message", new_message_path(user: @trip.user), class: "btn btn-primary" %>
+      <br><br>
+      <% if current_user == @trip.user %>
+          <%= link_to 'Edit', edit_trip_path(@trip), class: "btn btn-primary" %> 
+      <% end %>
+    </div>
+  </div>
+<div class="row">
         <div class="col-md-8 col-md-offset-1">
           <%= link_to 'Comment', new_trip_comment_path(@trip), class: "btn btn-primary" %>
-
-
               <table class="table">
                 <thead>
                   <tr>
@@ -53,10 +63,6 @@
                   <% end %>
                 </tbody>
               </table>  
-
-      <% if current_user == @trip.user %>
-          <%= link_to 'Edit', edit_trip_path(@trip), class: "btn btn-primary" %> 
-        <% end %>
-        
-      </div>
-    </div>
+  </div>
+    
+    

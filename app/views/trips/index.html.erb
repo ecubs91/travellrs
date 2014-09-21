@@ -29,16 +29,18 @@
   </div><!-- end of col-md-2 -->
   <div class="col-md-10">
       <% @trips.each do |trip| %>
-      <div class="row">
-            <div class="col-md-3">       
-              
+      <div class="row">       
+            <div class="col-md-1">
             </div>
             <div class="col-md-5">
+              <a href="/trips/<%= trip.id %>">
               <h3><%= "#{trip.user.first_name.capitalize} #{trip.user.last_name.capitalize}" %></h3>
               <p>Destination: <%= trip.destination %><br> 
                 Interests: <%= trip.interests %><br>
                 Language spoken: <%= trip.language %><br>
               About Myself: <%= truncate(trip.about_myself, :length => 200) %></p> 
+            </div>
+            <div class="col-md-1">
             </div>
             <div class="col-md-2">
               
