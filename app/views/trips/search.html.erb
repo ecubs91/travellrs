@@ -23,7 +23,9 @@
         <p>Language Spoken
           <ul>
             <% @languages.each do |language| %>
-              <li><%= link_to language.capitalize, search_trips_path(:language => language, :search => @search_param) %></li>
+              <% if language.present? %>
+                <li><%= link_to language.capitalize, search_trips_path(:language => language, :search => @search_param) %></li>
+              <% end %>
             <% end %>
             <!--<li><%#= link_to "English", search_trips_path({:language => 'English'}.merge(params)) %></li>-->
             <!--<li><%#= link_to "Chinese", search_trips_path({:language => 'Chinese'}.merge(params)) %></li>-->
@@ -32,7 +34,9 @@
       <p>Interests
         <ul>
           <% @interests.each do |interest| %>
-            <li><%= link_to interest.capitalize, search_trips_path(:search => @search_param, :interests => interest) %></li>
+            <% if interest.present? %>
+              <li><%= link_to interest.capitalize, search_trips_path(:search => @search_param, :interests => interest) %></li>
+            <% end %>
           <% end %>
           <!--<li><%#= link_to "English", search_trips_path({:language => 'English'}.merge(params)) %></li>-->
           <!--<li><%#= link_to "Chinese", search_trips_path({:language => 'Chinese'}.merge(params)) %></li>-->
@@ -46,7 +50,7 @@
         </div>
         <div class="col-md-5">
           <h3><%= "#{trip.user.first_name.capitalize} #{trip.user.last_name.capitalize}." %></h3>
-          <p><%= trip.destination %> <%= trip.language %> <%= trip.interests.present? ? trip.interests : "nop" %>
+          <p><%= trip.destination %>
           <p><%= truncate(trip.about_myself, :length => 275) %></p>
         </div>
         <div class="col-md-2">
