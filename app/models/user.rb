@@ -6,8 +6,8 @@ class User < ActiveRecord::Base
   
   validates :first_name, presence: true
   validates :last_name, presence: true
-  has_many :trips
-  has_many :comments
+  has_many :trips, :dependent => :delete_all
+  has_many :comments, :dependent => :delete_all
   
   acts_as_messageable
   def name
