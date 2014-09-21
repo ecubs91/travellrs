@@ -7,11 +7,16 @@ class TripsController < ApplicationController
   # GET /trips.json
   
   def search
-    @filters = params.slice(:language)
-    @destinations = Trip.pluck("destination")
+    @languages = Trip.pluck(:language).uniq
+    @interests = Trip.pluck(:interests).uniq
+    @destinations = Trip.pluck(:destination).uniq
+    @filters = params.slice(:language,:interests)
+    @search_param = params[:search]
+    @language_param = params[:language]
+    @intersts_param = params[:interests]
 
     if params[:search].present?
-      @trips = Trip.where("destination LIKE :destination",  {destination: "%#{params[:search]}%"}).where(@filters)
+      @trips = Trip.where("destination LIKE :destination",  {:destination=> "%#{params[:search]}%"}).where(@filters)
     else
       @trips = Trip.where(@filters).paginate(:page => params[:page], :per_page => 10)
     end
@@ -40,6 +45,8 @@ class TripsController < ApplicationController
   # POST /trips.json
   def create
     trip_params["destination"].downcase!
+    trip_params["language"].downcase!
+    trip_params["interests"].downcase!
     @trip = Trip.new(trip_params)
     @trip.user_id = current_user.id
 

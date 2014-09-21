@@ -2,54 +2,64 @@
 
 <%= link_to 'New Trip', new_trip_path %>
 <div class="container">
-   <div class="row">
-     <div class="col-md-6 col-md-offset-2">
-        <%= form_tag search_trips_path, method: :get, class: "center" do %>
+
+  <div class="row">
+    <div class="col-md-6 col-md-offset-2">
+      <%= form_tag search_trips_path, :method=> :get, :class=> "center" do %>
         <p>
           <%#= text_field_tag :search, params[:search], class: "form-control" %>
-          <%= select_tag :search, options_for_select(@destinations.uniq.sort.map {|destination| [destination.capitalize,destination]}.insert(0, "Where are you travelling to?")), :id => "e1", :style=>"width:100%;"%><br>
-          <br>
-          <%= submit_tag "Search", name: nil, class: "btn btn-default" %>
+          <%= select_tag :search, options_for_select(@destinations.uniq.sort.map {|destination| [destination.capitalize,destination]}.insert(0, "Where are you travelling to?")), :id => "e1", :style=>"width:100%;" %><br><br>
+          <%= submit_tag "Search", :name=> nil, :class=> "btn btn-default" %>
         </p>
-        <% end %>  
-     </div> 
-   </div>
-  <br>
-  <br>
-
-<div class="row">
-  <div class="col-md-2">
-     <p>Sort by</p>
-       <p>Language Spoken
-         <ul>
-           <li><%= link_to "English", search_trips_path({:language => 'English'}.merge(params)) %></li>
-           <li><%= link_to "Chinese", search_trips_path({:language => 'Chinese'}.merge(params)) %></li>
-         </ul>
-       </p>
-       <p>Interests</p>
-     </div>
-     <div class="col-md-10">
-         <% @trips.each do |trip| %>
-             <div class="row">
-                 <div class="col-md-3">
-                 </div>
-            </div>
-            <div class="col-md-5">
-              <h3><%= "#{trip.user.first_name.capitalize} #{trip.user.last_name.capitalize}." %></h3>
-              <p><%= trip.destination %> 
-              <p><%= truncate(trip.about_myself, :length => 275) %></p> 
-            </div>
-            <div class="col-md-2">
-              <%= link_to "Message", class: "btn btn-link" %> 
-            </div>
-         <% end %>
-     </div>
-
+      <% end %>
+    </div>
   </div>
-</div>   
+
+  <br><br>
+
+  <div class="row">
+    <div class="col-md-2">
+      <p>Search by</p>
+        <p>Language Spoken
+          <ul>
+            <% @languages.each do |language| %>
+              <li><%= link_to language.capitalize, search_trips_path(:language => language, :search => @search_param) %></li>
+            <% end %>
+            <!--<li><%#= link_to "English", search_trips_path({:language => 'English'}.merge(params)) %></li>-->
+            <!--<li><%#= link_to "Chinese", search_trips_path({:language => 'Chinese'}.merge(params)) %></li>-->
+          </ul>
+        </p>
+      <p>Interests
+        <ul>
+          <% @interests.each do |interest| %>
+            <li><%= link_to interest.capitalize, search_trips_path(:search => @search_param, :interests => interest) %></li>
+          <% end %>
+          <!--<li><%#= link_to "English", search_trips_path({:language => 'English'}.merge(params)) %></li>-->
+          <!--<li><%#= link_to "Chinese", search_trips_path({:language => 'Chinese'}.merge(params)) %></li>-->
+        </ul>
+      </p>
+    </div>
+    <div class="col-md-10">
+      <% @trips.each do |trip| %>
+        <div class="row">
+          <div class="col-md-3"></div>
+        </div>
+        <div class="col-md-5">
+          <h3><%= "#{trip.user.first_name.capitalize} #{trip.user.last_name.capitalize}." %></h3>
+          <p><%= trip.destination %> <%= trip.language %> <%= trip.interests.present? ? trip.interests : "nop" %>
+          <p><%= truncate(trip.about_myself, :length => 275) %></p>
+        </div>
+        <div class="col-md-2">
+          <%= link_to "Message", :class=> "btn btn-link" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+</div>
+
 <br>
-<%= #will_paginate @tutors, renderer: BootstrapPagination::Rails 
-%>
+<%#= will_paginate @tutors, renderer: BootstrapPagination::Rails %>
 <br>
 
 <script>
