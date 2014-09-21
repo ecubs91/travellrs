@@ -1,27 +1,25 @@
 <div class="container">
   <div class="row">
     <div class="col-md-8">
-<h2>Inbox</h2>
-
-<table class="table">
-  <thead>
-    <tr>
-      <td>Name</td>
-      <td>Subject</td>
-      <td>Sent Date</td>
-    </tr>
-  </thead>
-  <% @conversations.each do |conversation| %>
-  <tbody>
-    <tr>
-      <td><%= conversation.last_sender.first_name %><br>
-              </td>
-      <td><%= link_to raw(truncate(strip_tags(conversation.last_message.subject), :length => 35)),conversation_path(conversation) %></td>
-      <td><%= conversation.updated_at.strftime("%m/%e/%Y %I:%M %p") %></td>
-    </tr>
-  </tbody>
-     <br>
-<% end %>
-</table>
+      <h2>Inbox</h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <td>Name</td>
+            <td>Subject</td>
+            <td>Sent Date</td>
+          </tr>
+        </thead>
+        <% @conversations.each do |conversation| %>
+          <tbody>
+            <tr>
+              <td><%= conversation.last_sender.first_name %><br></td>
+              <td><%= link_to raw(truncate(strip_tags(conversation.last_message.subject), :length => 35)),conversation_path(conversation) %></td>
+              <td><%= conversation.updated_at.strftime("%m/%e/%Y %I:%M %p") %></td>
+            </tr>
+          </tbody>
+        <% end %>
+      </table>
     </div>
   </div>
+</div>

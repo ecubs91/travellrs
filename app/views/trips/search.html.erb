@@ -1,16 +1,16 @@
-<h1>Listing trips</h1>
+<div style="margin-left: 5%; margin-bottom: 20px;">
+  <h1>Listing trips</h1>
+  <%= link_to 'New Trip', new_trip_path %>
+</div>
 
-<%= link_to 'New Trip', new_trip_path %>
+
 <div class="container">
 
   <div class="row">
     <div class="col-md-6 col-md-offset-2">
       <%= form_tag search_trips_path, :method=> :get, :class=> "center" do %>
-        <p>
-          <%#= text_field_tag :search, params[:search], class: "form-control" %>
           <%= select_tag :search, options_for_select(@destinations.uniq.sort.map {|destination| [destination.capitalize,destination]}.insert(0, "Where are you travelling to?")), :id => "e1", :style=>"width:100%;" %><br><br>
           <%= submit_tag "Search", :name=> nil, :class=> "btn btn-default" %>
-        </p>
       <% end %>
     </div>
   </div>
@@ -18,47 +18,78 @@
   <br><br>
 
   <div class="row">
+
     <div class="col-md-2">
-       <p style="line-height:28px">Language Spoken 
-           <% @languages.each do |language| %>
+      <p style="line-height:28px;">
+      <fieldset>
+        <legend><h5><b>Language Spoken</b></h5></legend>
+        <div style="margin-left: 10px;">
+          <% @languages.each do |language| %>
               <% if language.present? %>
-                <%= link_to language.capitalize, search_trips_path(:language => language, :search => @search_param) %>
+                  <%= link_to language.capitalize, search_trips_path(:language => language, :search => @search_param) %><br>
               <% end %>
-            <% end %>
-         </p>
-      <p style="line-height:28px">Interests
-         <% @interests.each do |interest| %>
-            <% if interest.present? %>
-              <%= link_to interest.capitalize, search_trips_path(:search => @search_param, :interests => interest) %>
-            <% end %>
-          <% end %>          
+          <% end %>
+        </div>
+      </fieldset>
+      </p>
+      <p style="line-height:28px;margin-top: 20px;">
+      <fieldset>
+        <legend><h5><b>Interests</b></h5></legend>
+        <div style="margin-left: 10px;">
+          <% @interests.each do |interest| %>
+              <% if interest.present? %>
+                  <%= link_to interest.capitalize, search_trips_path(:search => @search_param, :interests => interest) %><br>
+              <% end %>
+          <% end %>
+        </div>
+      </fieldset>
       </p>
     </div>
+
     <div class="col-md-10">
       <% @trips.each do |trip| %>
-        <div class="row">
-         <div class="col-md-1">
+          <div class="row">
+            <div class="col-md-1">
             </div>
-           
-        <div class="col-md-5">
-          <h3><%= "#{trip.user.first_name.capitalize} #{trip.user.last_name.capitalize}." %></h3>
-          <p>Destination: <%= trip.destination %><br> 
-                Interests: <%= trip.interests %><br>
-                Language spoken: <%= trip.language %><br>
-              About Myself: <%= truncate(trip.about_myself, :length => 200) %></p> 
-        </div>
-        <div class="col-md-1">
-        </div>
-        <div class="col-md-2">              
-           <%= link_to "Message", new_message_path(user: trip.user), class: "btn btn-primary" %> 
-        </div>          
-     </div><!-- end of row -->
-    <% end %>
-  </div><!-- end of col-md-10 -->
-</div>   
-<%#= will_paginate @tutors, renderer: BootstrapPagination::Rails %>
-<br>
 
-<script>
-    $(document).ready(function() { $("#e1").select2({placeholder: "What subject are you interested in?", allowClear: true}); });
-</script>
+            <div class="col-md-5">
+              <div>
+                <h3><%= "#{trip.user.first_name.capitalize} #{trip.user.last_name.capitalize}." %></h3>
+              </div>
+              <p>
+                <table>
+                  <tr>
+                    <td><b>Destination</b></td>
+                    <td><div style="padding-left: 10px;"><%= trip.destination.capitalize %></div></td>
+                  </tr>
+                  <tr>
+                    <td><b>Interests</b></td>
+                    <td><div style="padding-left: 10px;"><%= trip.interests.capitalize %></div></td>
+                  </tr>
+                  <tr>
+                    <td><b>Language spoken</b></td>
+                    <td><div style="padding-left: 10px;"><%= trip.language.capitalize %></div></td>
+                  </tr>
+                  <tr>
+                    <td><b>About Myself</b></td>
+                    <td><div style="padding-left: 10px;"><%= truncate(trip.about_myself, :length => 200) %></div></td>
+                  </tr>
+                </table>
+
+              </p>
+            </div>
+            <div class="col-md-1">
+            </div>
+            <div class="col-md-2">
+              <%= link_to "Message", new_message_path(user: trip.user), class: "btn btn-primary" %>
+            </div>
+          </div><!-- end of row -->
+      <% end %>
+    </div><!-- end of col-md-10 -->
+  </div>
+<%#= will_paginate @tutors, renderer: BootstrapPagination::Rails %>
+  <br>
+
+  <script>
+      $(document).ready(function() { $("#e1").select2({placeholder: "What subject are you interested in?", allowClear: true}); });
+  </script>

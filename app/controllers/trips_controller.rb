@@ -24,6 +24,9 @@ class TripsController < ApplicationController
 
   def index
     @trips = Trip.where(@filters)
+    @languages = Trip.pluck(:language).uniq
+    @interests = Trip.pluck(:interests).uniq
+    @destinations = Trip.pluck(:destination).uniq
   end
 
   # GET /trips/1
