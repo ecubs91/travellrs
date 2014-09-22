@@ -47,6 +47,7 @@
                 </thead>
 
                 <tbody>
+
                   <% @comments.each do |comment| %>
                     <tr>
                       <td>
@@ -57,7 +58,7 @@
                       </td>
                       <td>
                         <p><%= comment.comment %></p>
-                        <p><%= h(comment.comment).gsub(/\n/, '<br/>').html_safe %></p>
+                        <!--<p><%#= h(comment.comment).gsub(/\n/, '<br/>').html_safe %></p>-->
                       </td>
                     </tr>
                   <% end %>

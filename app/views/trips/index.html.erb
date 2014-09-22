@@ -55,10 +55,26 @@
 
         <div class="col-md-5">
           <h3><%= "#{trip.user.first_name.capitalize} #{trip.user.last_name.capitalize}." %></h3>
-          <p>Destination: <%= trip.destination %><br>
-                Interests: <%= trip.interests %><br>
-                Language spoken: <%= trip.language %><br>
-              About Myself: <%= truncate(trip.about_myself, :length => 200) %></p>
+          <a href="/trips/<%= trip.id %>">
+            <table>
+              <tr>
+                <td><b>Destination</b></td>
+                <td><div style="padding-left: 10px;"><%= trip.destination.capitalize %></div></td>
+              </tr>
+              <tr>
+                <td><b>Interests</b></td>
+                <td><div style="padding-left: 10px;"><%= trip.interests.capitalize %></div></td>
+              </tr>
+              <tr>
+                <td><b>Language spoken</b></td>
+                <td><div style="padding-left: 10px;"><%= trip.language.capitalize %></div></td>
+              </tr>
+              <tr>
+                <td><b>About Myself</b></td>
+                <td><div style="padding-left: 10px;"><%= truncate(trip.about_myself, :length => 200) %></div></td>
+              </tr>
+            </table>
+          </a>
         </div>
         <div class="col-md-1">
         </div>

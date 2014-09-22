@@ -16,7 +16,6 @@ class TripsController < ApplicationController
     @intersts_param = params[:interests]
 
     if params[:search].present?
-      raise "asdasd"
       @trips = Trip.where("destination LIKE :destination",  {:destination=> "%#{params[:search].first}%"}).where(@filters)
     else
       @trips = (Trip.where(@filters)) rescue (Trip.where(@filters).paginate(:page => params[:page], :per_page => 10))
@@ -98,5 +97,14 @@ class TripsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def trip_params
       params.require(:trip).permit(:destination, :starting_date, :end_date, :interests, :user_id, :about_myself, :language)
+    end
+
+    def check_user
+      if current_user.present? && Trip.find(params[:id]).user==current_user
+
+      else
+        flash[:error] = "This trip does not belong to you."
+        redirect_to root_path
+      end
     end
 end
